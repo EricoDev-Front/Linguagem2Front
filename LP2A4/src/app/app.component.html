@@ -1,0 +1,74 @@
+<div class="container">
+  <mat-grid-list class="borderMaior" cols="3" rowHeight="2:1">
+    <mat-grid-tile class="um" rowspan="2">
+      <label id="example-radio-group-label">Filtrar por usuário:</label>
+      <mat-radio-group
+        aria-labelledby="example-radio-group-label"
+        class="example-radio-group"
+        [(ngModel)]="classificacao"
+      >
+      <mat-radio-button
+      *ngFor="let tipo of tipos"
+      [value]="tipo.valor"
+      ngmodel
+      class="example-radio-button"
+      >
+      {{tipo.chave}}
+    </mat-radio-button>
+      </mat-radio-group>
+    </mat-grid-tile>
+
+    <mat-grid-tile class="dois" colspan="2" rowspan="6">
+      <div class="cards">
+      <mat-card class="example-card" (click)="openDialog(card)" *ngFor="let card of cards | slice:(paginaAtual-1)*9:paginaAtual*9">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>{{card.name.first + " " + card.name.last}}</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image [src]="card.picture.large">
+        <mat-card-content>
+          <p style="    font-size: 9px;text-align: center;
+          color: white;">
+            {{card.location.street}}
+          </p>
+          <p style="text-align: center;
+          font-size: 1em;
+          color: white;"> {{card.location.city + ' ' + card.location.state + ' - CEP:' + card.location.postcode}} </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+      <div class="paginator">
+        <mat-paginator [length]="totalItems"
+               [hidePageSize]="false"
+               [pageSize]="pageSize"
+               (page)="paginaAtual = $event.pageIndex + 1; proximaPagina(paginaAtual)">
+
+      </mat-paginator>
+      </div>
+    </mat-grid-tile>
+
+    <mat-grid-tile class="tres">
+      <label id="example-radio-group-label">Filtrar por região:</label>
+      <mat-radio-group
+        aria-labelledby="example-radio-group-label"
+        class="example-radio-group"
+        [(ngModel)]="regiao"
+      >
+        <mat-radio-button
+          *ngFor="let regiao of regioes"
+          [value]="regiao.valor"
+          class="example-radio-button"
+          >
+          {{regiao.chave}}
+        </mat-radio-button>
+      </mat-radio-group>
+      <div style="display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-top: 5%;">
+        <button style="margin-right: 2%;" mat-raised-button color="accent" (click)="limpar()">Limpar Filtros</button>
+        <button mat-raised-button color="primary" (click)="getData()">Pesquisar</button>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
