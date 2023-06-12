@@ -56,11 +56,11 @@ export class AppComponent {
     let param1 = this.classificacao
       ? `?classificacao=${this.classificacao}`
       : '';
-    param1 = this.regiao ? `?region=${this.regiao}` : '';
+    param1 = this.regiao ? `?region=${this.regiao}` : param1;
     param1 =
       this.regiao && this.classificacao
         ? `?region=${this.regiao}&classificacao=${this.classificacao}`
-        : '';
+        : param1;
 
     const updatedUrl = param1.length > 0 ? this.url + param1 : this.url;
     this.http.get(updatedUrl).subscribe((res: any) => {
